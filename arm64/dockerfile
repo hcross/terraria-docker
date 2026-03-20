@@ -1,8 +1,8 @@
-FROM alpine:3.11.6 AS base
+FROM alpine:3.21 AS base
 
-ENV TSHOCKURL="https://github.com/surdle/terraria-docker/raw/0baefd48d7071d9e0504c805b5ef77df00a5d04f/files/TShock-5.2-for-Terraria-1.4.4.9-linux-arm64-Release.zip"
+ENV TSHOCKURL="https://github.com/Pryaxis/TShock/releases/download/v5.2.4/TShock-5.2.4-for-Terraria-1.4.4.9-linux-arm64-Release.zip"
 
-ENV DOTNETURL="https://github.com/surdle/terraria-docker/raw/0baefd48d7071d9e0504c805b5ef77df00a5d04f/files/dotnet-runtime-6.0.11-linux-arm64.tar.gz"
+ENV DOTNETURL="https://download.visualstudio.microsoft.com/download/pr/5aa79fd1-fac6-445f-9e68-003a0d368656/f21c1d45e64633019645d164cc53cf5b/dotnet-runtime-6.0.36-linux-arm64.tar.gz"
 
 RUN apk add curl
 RUN wget $TSHOCKURL -O /tshock.zip && \
