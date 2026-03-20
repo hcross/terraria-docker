@@ -8,10 +8,13 @@ RUN wget $TSHOCKURL -O /tshock.zip && \
     unzip /tshock.zip -d /tshock && \
     rm /tshock.zip
 
-FROM ubuntu:22.04
+RUN tar -xf /tshock/TShock-Beta-linux-arm64-Release.tar -C /tshock && \
+    rm /tshock/TShock-Beta-linux-arm64-Release.tar
+
+FROM mcr.microsoft.com/dotnet/runtime:9.0-noble-arm64v8
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends libicu-dev ca-certificates && \
+    apt-get install -y --no-install-recommends libicu-dev && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=base /tshock/ /tshock/
@@ -26,5 +29,5 @@ EXPOSE 7777
 WORKDIR /tshock
 ENTRYPOINT ["/bin/bash", "/tshock/start.sh"]
 
-# docker build -t terraria-docker:latest -f arm64/dockerfile .
+# docker build --platform linux/arm64 -t terraria-docker:latest -f arm64/dockerfile .
 # docker run -it -p 7777:7777 -v /home/$USER/terraria:/data --name terraria-docker terraria-docker:latest
