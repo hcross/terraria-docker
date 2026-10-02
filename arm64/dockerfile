@@ -1,6 +1,6 @@
 FROM alpine:3.21 AS base
 
-ENV TSHOCKURL="https://github.com/Pryaxis/TShock/releases/download/v6.1.0/TShock-6.1.0-for-Terraria-1.4.5.6-linux-arm64-Release.zip"
+ENV TSHOCKURL="https://github.com/Pryaxis/TShock/releases/download/v6.2.1/TShock-6.2.1-for-Terraria-1.4.5.8-linux-arm64-Release.zip"
 
 RUN apk add --no-cache wget unzip
 RUN wget $TSHOCKURL -O /tshock.zip && \

@@ -1,6 +1,6 @@
 # 🎮 Terraria Docker Server
 
-Run your own Terraria server using Docker on Linux or Raspberry Pi! This project containerizes a Terraria server with TShock version 1.4.4.9.
+Run your own Terraria server using Docker on Linux or Raspberry Pi! This project containerizes a Terraria server with TShock 6.2.1 (Terraria 1.4.5.8).
 
 ## 📋 Table of Contents
 
