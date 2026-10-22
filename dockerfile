@@ -2,21 +2,18 @@ FROM alpine:3.21 AS base
 
 ARG TARGETARCH
 
-RUN apk add --no-cache wget unzip
+# Local TShock build from the hcross fork (TShock 6.2.1 / Terraria 1.4.5.8
+# + NPC sync heartbeat fix, branch fix/npc-invisible-heartbeat).
+# The tar ships pre-extracted release layout (same as the official
+# TShock-Beta-linux-x64-Release.tar): built with
+#   dotnet publish TShockLauncher/TShockLauncher.csproj -c Release
+#   tar -cf release/TShock-Beta-linux-x64-Release.tar -C .../publish .
+COPY release/TShock-Beta-linux-x64-Release.tar /tshock-release.tar
 
-RUN case "${TARGETARCH:-amd64}" in \
-        "arm64") \
-            TSHOCK_ARCH="arm64" ;; \
-        *) \
-            TSHOCK_ARCH="x64" ;; \
-    esac && \
-    TSHOCKURL="https://github.com/Pryaxis/TShock/releases/download/v6.2.1/TShock-6.2.1-for-Terraria-1.4.5.8-linux-${TSHOCK_ARCH}-Release.zip" && \
-    wget "$TSHOCKURL" -O /tshock.zip && \
+RUN apk add --no-cache tar && \
     mkdir /tshock && \
-    unzip /tshock.zip -d /tshock && \
-    rm /tshock.zip && \
-    tar -xf "/tshock/TShock-Beta-linux-${TSHOCK_ARCH}-Release.tar" -C /tshock && \
-    rm "/tshock/TShock-Beta-linux-${TSHOCK_ARCH}-Release.tar"
+    tar -xf /tshock-release.tar -C /tshock && \
+    rm /tshock-release.tar
 
 FROM mcr.microsoft.com/dotnet/runtime:9.0-noble
 
