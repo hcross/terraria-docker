@@ -23,6 +23,11 @@ RUN apt-get update -y && \
 
 COPY --from=base /tshock/ /tshock/
 
+# Diagnostic probe (invisible-NPC investigation, 2026-10-23): passive TSAPI plugin
+# that logs NPC spawns, outgoing NpcUpdate/NpcHealth/Teleport packets and, every
+# two seconds, each player's position plus nearby active NPCs, to /data/logs/syncprobe.log.
+COPY probe/SyncProbe.dll /tshock/ServerPlugins/
+
 RUN chmod +x /tshock/TShock.Server
 
 RUN echo '#!/bin/bash\n/tshock/TShock.Server -configpath /data -worldselectpath /data/worlds -logpath /data/logs "$@"' > /tshock/start.sh && \
